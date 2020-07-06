@@ -170,6 +170,9 @@ async function main() {
         const items = crafts[category][subcategory].filter(x => x.level >= config.hideLevelUnder)
         const lucky = items.filter(x => x.lucky).length
         const price = fetchPrice(category, subcategory)
+        if (items.length === 0) {
+          continue
+        }
         console.log(`${subcategory} x${items.length}${lucky > 0 ? ` (x${lucky} Lucky)` : ''}: ${price}`)
       } else {
         for (const craft of crafts[category][subcategory]) {
@@ -178,6 +181,8 @@ async function main() {
       }
     }
   }
+  console.log()
+  console.log('*Up to date craft list is created by PoeHorticraftingScanner script*')
   process.exit(0)
 }
 
