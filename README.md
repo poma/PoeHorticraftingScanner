@@ -1,6 +1,10 @@
 # POE Horticrafting Scanner
 Will scan your stash finding all Horticrafting Stations and their crafts formatted for discord trading.
 
+[Example of short output](https://gist.github.com/poma/df0e184bfe789cecf8d087018fc38e3e)
+
+[Example of full output](https://gist.github.com/poma/a5be8c97bfd9db5a295efc590b07314c)
+
 Based on [POE_Horticrafting_Tracker](https://github.com/Corbris/POE_Horticrafting_Tracker) by Corbris
 
 # Installation
