@@ -1,0 +1,34 @@
+{
+  "accountName": "xxxAccountName",
+  "IGN": "xxxInGameName",
+  "POESESSID": "xxxYourLoginCookieFrom-https://www.pathofexile.com",
+  "hideCategories": [
+    "Randomise",
+    "Other"
+  ],
+  "hideLevelUnder": 76,
+  "price": {
+    "default": "30c",
+    "Remove": {
+      "default": "40c",
+      "Life": "50c",
+      "Chaos": "60c"
+    },
+    "Remove+Add": {
+      "default": "50c",
+      "Life": "60c",
+      "Chaos": "70c"
+    },
+    "Remove Non+Add": {
+      "default": "50c"
+    },
+    "Change": {
+      "default": "40c"
+    },
+    "Augment": {
+      "default": "50c",
+      "Life": "70c",
+      "Chaos": "90c"
+    }
+  }
+}
