@@ -1,7 +1,7 @@
 {
   "accountName": "xxxAccountName",
-  "IGN": "xxxInGameName",
   "POESESSID": "xxxYourLoginCookieFrom-https://www.pathofexile.com",
+  "header": "[HSC] IGN: @ExampleDude\nAll seeds are lvl76+\nLucky mods cost +20c",
   "hideCategories": [
     "Other"
   ],

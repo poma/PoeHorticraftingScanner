@@ -154,8 +154,8 @@ async function main() {
   const stations = await fetchAllTabs()
   let crafts = stations.map(x => x.craftedMods).flat().map(x => stringToCraft(x))
 
-  if (!fullOutput) {
-    console.log(`[HSC] IGN: @${config.IGN}`)
+  if (!fullOutput && config.header) {
+    console.log(config.header)
   }
   crafts = groupBy(crafts, 'category')
   for (const category of Object.keys(crafts).sort(priorityCompare(categoryOrder))) {
@@ -181,8 +181,10 @@ async function main() {
       }
     }
   }
-  console.log()
-  console.log('*Up to date craft list is created by PoeHorticraftingScanner script*')
+  if (!fullOutput) {
+    console.log()
+    console.log('*Up to date craft list is created by PoeHorticraftingScanner script*')
+  }
   process.exit(0)
 }
 
