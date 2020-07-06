@@ -3,32 +3,43 @@
   "IGN": "xxxInGameName",
   "POESESSID": "xxxYourLoginCookieFrom-https://www.pathofexile.com",
   "hideCategories": [
-    "Randomise",
     "Other"
   ],
   "hideLevelUnder": 76,
   "price": {
     "default": "30c",
-    "Remove": {
-      "default": "40c",
-      "Life": "50c",
-      "Chaos": "60c"
-    },
-    "Remove+Add": {
-      "default": "50c",
-      "Life": "60c",
-      "Chaos": "70c"
-    },
-    "Remove Non+Add": {
-      "default": "50c"
-    },
-    "Change": {
-      "default": "40c"
-    },
     "Augment": {
       "default": "50c",
-      "Life": "70c",
-      "Chaos": "90c"
+      "Fire": "60c",
+      "Cold": "60c",
+      "Lightning": "60c",
+      "Chaos": "80c",
+      "Life": "80c"
+    },
+    "Remove/Add": {
+      "default": "50c",
+      "Fire": "70c",
+      "Cold": "70c",
+      "Lightning": "70c",
+      "Defence": "80c",
+      "Chaos": "80c",
+      "Life": "80c"
+    },
+    "Remove": {
+      "default": "40c"
+    },
+    "Remove Non/Add": {
+      "default": "30c"
+    },
+    "Change Resists": {
+      "default": "20c"
+    },
+    "Randomise": {
+      "default": "20c",
+      "Speed": "30c"
+    },
+    "Other": {
+      "default": "1ex"
     }
   }
 }
