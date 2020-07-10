@@ -163,17 +163,24 @@ async function main() {
       continue
     }
     console.log()
-    console.log(fullOutput ? `# ${category}` : `**${category}:**`)
+    console.log(fullOutput ? `# ${category}` : `**__${category}:__**`)
     crafts[category] = groupBy(crafts[category], 'subcategory')
     for (const subcategory of Object.keys(crafts[category]).sort(priorityCompare(subcategoryOrder))) {
       if (!fullOutput) {
         const items = crafts[category][subcategory].filter(x => x.level >= config.hideLevelUnder)
         const lucky = items.filter(x => x.lucky).length
-        const price = fetchPrice(category, subcategory)
+        const normal = items.length - lucky
+        const count = `${normal ? `x${normal}` : ''}${normal && lucky ? ' + ' : ''}${lucky ? `x${lucky} Lucky` : ''}`
+        let price = fetchPrice(category, subcategory)
+        if (lucky && normal) {
+          price = `${price} (Lucky +${config.luckyPrice})`
+        } else if (lucky) {
+          price = `${price} + ${config.luckyPrice}`
+        }
         if (items.length === 0) {
           continue
         }
-        console.log(`${subcategory} x${items.length}${lucky > 0 ? ` (x${lucky} Lucky)` : ''}: ${price}`)
+        console.log(`${subcategory} (${count}): **${price}**`)
       } else {
         for (const craft of crafts[category][subcategory]) {
           console.log(craft.plaintext)
