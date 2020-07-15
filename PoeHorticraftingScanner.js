@@ -151,7 +151,7 @@ const priorityCompare = (order) => (a, b) =>
 
 /** Main function, needs refactoring */
 async function main() {
-  const stations = await fetchAllTabs()
+  const stations = config.tab ? await fetchTab(config.tab) : await fetchAllTabs()
   let crafts = stations.map(x => x.craftedMods).flat().map(x => stringToCraft(x))
 
   if (!fullOutput && config.header) {
