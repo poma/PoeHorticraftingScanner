@@ -43,7 +43,7 @@ async function fetchTab(tab) {
     { headers: { Cookie: `POESESSID=${config.POESESSID}` } },
   )
 
-  return data.data.items ? data.data.items.filter(item => item.typeLine === 'Horticrafting Station') : [];
+  return data.data.items ? data.data.items.filter(item => item.typeLine === 'Horticrafting Station' && item.craftedMods) : [];
 }
 
 /**
