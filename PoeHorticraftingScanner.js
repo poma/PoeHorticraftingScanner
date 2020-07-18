@@ -5,6 +5,7 @@ const fullOutput = process.env.FULL_OUTPUT
 
 // Order used to sort crafting categories
 const categoryOrder = [
+  'Special',
   'Augment',
   'Remove/Add',
   'Remove',
@@ -68,41 +69,44 @@ async function fetchAllTabs() {
  * @returns {{lucky: boolean, level: number, plaintext: string, sourceText: string}}
  */
 function stringToCraft(craft) {
-  // Tokens = white text pieces
-  const tokens = [...craft.matchAll(/<white>{(.*?)}/g)].map(x => x[1])
   const level = craft.match(/\((\d+)\)$/)[1]
   const result = {
     level,
-    sourceText: craft,
-    plaintext: craft.replace(/<white>/g, '').replace(/[{}]/g, ''),
+    text: craft,
     lucky: craft.indexOf('Lucky') > -1,
   }
-  switch (tokens[0]) {
-    case 'Augment':
-      result.category = 'Augment'
-      result.subcategory = tokens[1]
-      break;
-    case 'Randomise':
-      result.category = 'Randomise'
-      result.subcategory = tokens[1]
-      break;
-    case 'Change':
-      result.category = 'Change Resists'
-      result.subcategory = `${tokens[1]} -> ${tokens[2]}`
-      break;
-    case 'Remove':
-      if (tokens.length === 2) {
-        result.category = 'Remove'
-        result.subcategory = tokens[1]
-      } else {
-        result.category = tokens[1].startsWith('non-') ? 'Remove Non-/Add' : 'Remove/Add'
-        result.subcategory = tokens[3]
-      }
-      break;
-    default:
-      result.category = 'Other'
-      result.subcategory = result.plaintext
-      break;
+  if (craft.startsWith('Augment ')) {
+    result.category = 'Augment'
+    result.subcategory = craft.match(/^Augment .* (\w+) modifier /)[1]
+  } else if (craft.startsWith('Randomise ')) {
+    result.category = 'Randomise'
+    result.subcategory = craft.match(/^Randomise the numeric values .* (\w+) modifiers /)[1]
+  } else if (craft.startsWith('Change ')) {
+    result.category = 'Change Resists'
+    const match = craft.match(/^Change .* grants (\w+) Resistance into .* (\w+) Resistance/)
+    result.subcategory = `${match[1]} -> ${match[2]}`
+  } else if (craft.startsWith('Remove ')) {
+    let match = craft.match(/^Remove a random (?<non>non-)?(?<mod>\w+) modifier.*(?<add>and add a new)?.*\(/).groups
+    match = match
+    if (!match.add) {
+      result.category = 'Remove'
+      result.subcategory = match.mod
+    } else {
+      result.category = match.non ? 'Remove Non-/Add' : 'Remove/Add'
+      result.subcategory = mod
+    }
+  } else if (craft.startsWith('Fracture ')) {
+    result.category = 'Special'
+    result.subcategory = 'Fracture ' + craft.match(/^Fracture a random (\w+) /)[1]
+  } else if (craft.startsWith('Synthesise ')) {
+    result.category = 'Special'
+    result.subcategory = 'Synthesise an item'
+  } else if (craft.startsWith('Add a random Influence ')) {
+    result.category = 'Special'
+    result.subcategory = 'Influence ' + craft.match(/Rare (\w+) that/)[1]
+  } else {
+    result.category = 'Other'
+    result.subcategory = result.text
   }
   // nodejs supports optional chaining only starting from v14
   // so we use use a separate function instead
@@ -183,7 +187,7 @@ async function main() {
         console.log(`${subcategory} (${count}): **${price}**`)
       } else {
         for (const craft of crafts[category][subcategory]) {
-          console.log(craft.plaintext)
+          console.log(craft.text)
         }
       }
     }
