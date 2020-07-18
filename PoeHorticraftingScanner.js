@@ -81,13 +81,12 @@ function stringToCraft(craft) {
   } else if (craft.startsWith('Randomise ')) {
     result.category = 'Randomise'
     result.subcategory = craft.match(/^Randomise the numeric values .* (\w+) modifiers /)[1]
-  } else if (craft.startsWith('Change ')) {
+  } else if (craft.startsWith('Change a modifier ')) {
     result.category = 'Change Resists'
     const match = craft.match(/^Change .* grants (\w+) Resistance into .* (\w+) Resistance/)
     result.subcategory = `${match[1]} -> ${match[2]}`
   } else if (craft.startsWith('Remove ')) {
-    let match = craft.match(/^Remove a random (?<non>non-)?(?<mod>\w+) modifier.*(?<add>and add a new)?.*\(/).groups
-    match = match
+    const match = craft.match(/^Remove a random (?<non>non-)?(?<mod>\w+) modifier.*(?<add>and add a new)?.*\(/).groups
     if (!match.add) {
       result.category = 'Remove'
       result.subcategory = match.mod
