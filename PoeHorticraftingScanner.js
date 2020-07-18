@@ -86,13 +86,13 @@ function stringToCraft(craft) {
     const match = craft.match(/^Change .* grants (\w+) Resistance into .* (\w+) Resistance/)
     result.subcategory = `${match[1]} -> ${match[2]}`
   } else if (craft.startsWith('Remove ')) {
-    const match = craft.match(/^Remove a random (?<non>non-)?(?<mod>\w+) modifier.*(?<add>and add a new)?.*\(/).groups
+    const match = craft.match(/^Remove a random (?<non>non-)?(?<mod>\w+) modifier from an item (?<add>and .*)?\(/).groups
     if (!match.add) {
       result.category = 'Remove'
       result.subcategory = match.mod
     } else {
       result.category = match.non ? 'Remove Non-/Add' : 'Remove/Add'
-      result.subcategory = mod
+      result.subcategory = match.mod
     }
   } else if (craft.startsWith('Fracture ')) {
     result.category = 'Special'
